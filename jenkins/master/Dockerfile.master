@@ -1,0 +1,48 @@
+#1. docker build -t jenkins-blueocean -f Dockerfile.jenkins.master .
+#2. docker login docker-dev.roshka.com
+#3. docker tag jenkins-blueocean docker-dev.roshka.com/dev/jenkins/jenkins-blueocean:latest
+#4. docker push docker-dev.roshka.com/dev/jenkins/jenkins-blueocean:latest
+
+#Al hacer run del container:
+# docker network create jenkins
+# docker run --group-add $(stat -c '%g' /var/run/docker.sock) \
+# --name jenkins-master-node --restart=on-failure \
+# --detach --network jenkins \
+# --publish 8080:8080 --publish 50000:50000 \
+# --volume jenkins-data:/var/jenkins_home \
+# --volume /var/run/docker.sock:/var/run/docker.sock jenkins-blueocean
+
+FROM jenkins/jenkins:jdk17
+
+USER root
+
+# Add Docker's official GPG key:
+RUN apt-get -y update
+RUN apt-get -y install ca-certificates curl gnupg
+RUN install -m 0755 -d /etc/apt/keyrings
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+RUN chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Add the repository to Apt sources:
+RUN echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+    tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+#Install Docker CLI
+RUN apt-get -y update
+RUN apt-get -y install docker-ce-cli
+
+
+USER jenkins
+
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+
+# RUN jenkins-plugin-cli --plugins -f /usr/share/jenkins/ref/plugins.txt
+ARG DOCKER_GROUP_ID
+
+USER root
+#--group-add $(stat -c '%g' /var/run/docker.sock) doesnt work in ssh
+# If jenkins already in group id then comment steps:
+RUN groupadd -g ${DOCKER_GROUP_ID} host-docker
+RUN usermod -aG host-docker jenkins

@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            echo "Cloning repository..."
+            checkout scm
+        }
+    }
+
+    post {
+        always {
+            echo "Cleaning up..."
+
+            cleanWs()
+        }
+    }
+}
