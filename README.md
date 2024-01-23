@@ -6,7 +6,11 @@ Docker Engine + Docker Registry + Docker Registry UI
 Jenkins Master + SSH Agent + Docker Cloud Agents
 SonarQube Server + Postgress
 
-TODO: Give example of Jenkins Pipelines
+TODO: 
+- Give example of Jenkins Pipelines
+- InfluxDB
+- Grafana
+- docker sysbox branch
 
 TO RUN:
 First install docker using the script inside docker folder. 

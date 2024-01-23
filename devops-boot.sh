@@ -15,7 +15,7 @@ cd ..
 
 cd sonarqube
 echo "Starting Sonarqube Server at $PWD"
-sonarqube-requirements.sh
+./sonarqube-requirements.sh
 ./sonarqube-boot.sh
 cd ..
 
