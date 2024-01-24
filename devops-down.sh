@@ -1,23 +1,30 @@
 #!/bin/bash
-set -e
+# set -e
 
 cd docker/docker-registry
 echo "Killing Docker Registry Server at $PWD"
-./docker-registry-kill.sh
+./docker-registry-down.sh
 rm .env
 cd ../..
 
 cd jenkins
 echo "Killing Jenkins Server at $PWD"
-./jenkins-kill.sh
+./jenkins-down.sh
 rm .env
 cd ..
 
 cd sonarqube
 echo "Killing Sonarqube Server at $PWD"
-./sonarqube-kill.sh
+./sonarqube-down.sh
 rm .env
 cd ..
+
+cd influxdb-grafana
+echo "Killing InfluxDB and Grafana Server at $PWD"
+./influxdb-grafana-down.sh
+rm .env
+cd ..
+
 
 docker network rm devops
 

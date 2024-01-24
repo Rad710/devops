@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  registry-ui:
+  docker-registry-ui:
     build:
       dockerfile: Dockerfile.registry.ui
       
@@ -10,7 +10,7 @@ services:
     restart: always
     
     ports:
-      - 80:80
+      - 81:80
     
     environment:
       - SINGLE_REGISTRY=true
@@ -27,7 +27,7 @@ services:
       - docker-registry
       - devops
 
-  registry-server:
+  docker-registry-server:
     build:
       dockerfile: Dockerfile.registry
       
@@ -47,7 +47,7 @@ services:
        - REGISTRY_HTTP_HEADERS_Access-Control-Expose-Headers=[Docker-Content-Digest]
     
     volumes:
-      - docker-registry_data:/var/lib/registry
+      - docker_registry_data:/var/lib/registry
 
     container_name: docker-registry-server
 
@@ -56,7 +56,7 @@ services:
       - devops
 
 volumes:
-  docker-registry_data:
+  docker_registry_data:
 
 networks:
   docker-registry:

@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  influxdb:
+    build:
+      dockerfile: Dockerfile.influxdb
+
+    image: ${REGISTRY}/influxdb/influxdb:1.8
+
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+
+    ports:
+      - "8086:8086"
+
+    networks:
+      - devops-metrics
+      - devops
+
+    restart: always
+
+    container_name: influxdb
+
+
+  grafana:
+    build:
+      dockerfile: Dockerfile.grafana
+
+    image: ${REGISTRY}/grafana/grafana:10.3.1
+
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+    ports:
+      - "3000:3000"
+
+    networks:
+      - devops-metrics
+      - devops
+
+    restart: always
+
+    container_name: grafana
+
+
+volumes:
+  influxdb_data:
+  grafana_data:
+
+
+networks:
+  devops-metrics:
+  devops:
+    name: devops
+    external: true

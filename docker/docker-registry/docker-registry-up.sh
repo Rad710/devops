@@ -11,5 +11,5 @@ docker compose push
 
 echo '****************************************************'
 echo $'\Docker Registry Server: http://localhost:5000/'
-echo $'\Docker Registry server UI: http://localhost:80/'
+echo $'\Docker Registry server UI: http://localhost:81/'
 echo '****************************************************'

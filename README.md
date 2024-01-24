@@ -8,8 +8,7 @@ SonarQube Server + Postgress
 
 TODO: 
 - Give example of Jenkins Pipelines
-- InfluxDB
-- Grafana
+- Add How to Use Guide
 - docker sysbox branch
 
 TO RUN:
