@@ -1,0 +1,40 @@
+# docker run --runtime=sysbox-runc -it -p 20:22 \
+# -p 8080:8080 -p 50000:50000 -v jenkins_box_data:/var/lib/docker \
+#  --hostname=syscont --name=jenkins-box --restart=always \
+#  nestybox/ubuntu-jammy-systemd-docker:latest
+
+version: "3.9"
+services:
+  jenkins-box:
+    build:
+      dockerfile: Dockerfile
+      
+    image: ${REGISTRY}/sysbox/ubuntu-systemd-docker:22.04
+
+    container_name: jenkins-box
+
+    runtime: sysbox-runc
+
+    ports:
+      - "20:22"
+      - "8080:8080"
+      - "50000:50000"
+
+    hostname: syscont
+
+    networks:
+      - devops
+
+    restart: "always"
+
+    volumes:
+      - "jenkins_box_data:/var/lib/docker"
+
+
+volumes:
+  jenkins_box_data:
+
+networks:
+  devops:
+    name: devops
+    external: true

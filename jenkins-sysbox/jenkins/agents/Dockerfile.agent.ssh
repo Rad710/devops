@@ -34,3 +34,5 @@ ARG DOCKER_GROUP_ID
 # If jenkins already in group id then comment steps:
 RUN groupadd -g ${DOCKER_GROUP_ID} host-docker
 RUN usermod -aG host-docker jenkins
+
+USER jenkins

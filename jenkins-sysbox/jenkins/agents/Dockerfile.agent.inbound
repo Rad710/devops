@@ -22,3 +22,5 @@ RUN apt-get -y install docker-ce-cli jq wget
 #Agregar user para el jenkins del vm (uid: 113, gid: 121)
 RUN groupadd --gid 121 new-jenkins \
     && useradd --uid 113 --gid new-jenkins --shell /bin/bash --create-home new-jenkins
+
+USER jenkins

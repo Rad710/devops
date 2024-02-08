@@ -17,8 +17,7 @@ FROM jenkins/jenkins:jdk17
 USER root
 
 # Add Docker's official GPG key:
-RUN apt-get -y update
-RUN apt-get -y install ca-certificates curl gnupg
+RUN apt-get -y update && apt-get -y install ca-certificates curl gnupg
 RUN install -m 0755 -d /etc/apt/keyrings
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 RUN chmod a+r /etc/apt/keyrings/docker.gpg
@@ -30,8 +29,9 @@ RUN echo \
     tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 #Install Docker CLI
-RUN apt-get -y update
-RUN apt-get -y install docker-ce-cli
+RUN apt-get -y update && apt-get -y install docker-ce-cli
+
+RUN apt-get install -y inetutils-ping wget zip jq
 
 
 USER jenkins
@@ -39,10 +39,3 @@ USER jenkins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 
 # RUN jenkins-plugin-cli --plugins -f /usr/share/jenkins/ref/plugins.txt
-ARG DOCKER_GROUP_ID
-
-USER root
-#--group-add $(stat -c '%g' /var/run/docker.sock) doesnt work in ssh
-# If jenkins already in group id then comment steps:
-RUN groupadd -g ${DOCKER_GROUP_ID} host-docker
-RUN usermod -aG host-docker jenkins
