@@ -10,6 +10,6 @@ docker compose push
 docker compose up -d --no-build
 
 echo '****************************************************'
-echo $'\Sonarqube Server: http://localhost:9000/'
-echo $'\Starting credentials: admin:admin'
+echo $'Sonarqube Server: http://localhost:9000/'
+echo $'Starting credentials: admin:admin'
 echo '****************************************************'
