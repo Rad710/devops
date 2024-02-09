@@ -15,6 +15,7 @@ InfluxDB + Grafana
 
 TODO: 
 - Give example of Jenkins Pipelines
+- Using TCP with Certs
 
 TO RUN:
 First install docker using the script inside docker folder. 
@@ -26,6 +27,7 @@ To delete all containers run devops-down.sh
 
 devops-up.sh:
 - docker network create devops (used by all docker compose files)
+- docker network create jenkins
 - Creates .env file for each folder
 - Runs each ${folder}-up.sh file to start respective docker compose up
 - docker exec -t influxdb influx -execute 'create database jenkins'
@@ -34,3 +36,4 @@ devops-down.sh:
 - docker compose down
 - Removes all .env files
 - docker network rm devops
+- docker network rm jenkins
