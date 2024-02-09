@@ -2,11 +2,11 @@
 DevOps Setup for localhost
 
 ### Using Docker for Jenkins (using sysbox):
-The Jenkins Box runs as an isolated Docker Daemon inside the sysbox. Then, the Jenkins Master container is simply connects over TCP to the Docker Daemon (of the sysbox) using the tcp socket: tcp://jenkins-box:2375. Therefore, Docker Cloud agents must be used as Agents.
+The Jenkins Box runs as an isolated Docker Daemon inside the sysbox. Then, the Jenkins Master container simply connects over TCP to the Docker Daemon (of the sysbox) using the tcp socket: tcp://jenkins-box:2375. Therefore, Docker Cloud agents must be used as Agents.
 
-Now, the Jenkins is completely isolated from the host machine while also running in a container in the host machine itself.
+Now, the Jenkins is completely isolated from the host machine while also running as a container in the host machine itself.
 
-For the Docker Cloud Agents, the network is set to the host (network_mode: "host"). Because, all other containers only exists in the local network (SonarQube, Docker Registry, InfluxDB), therefore to simplify access I use --network-host. This can be removed.
+For the Docker Cloud Agents, the network is set to the host (network_mode: "host"). Because, all other containers only exist in the local network (SonarQube, Docker Registry, InfluxDB), therefore to simplify access I use --network-host. This can be removed.
 
 Docker Engine + Docker Registry + Docker Registry UI
 Jenkins Master + Docker Cloud Agents
