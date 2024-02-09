@@ -1,15 +1,20 @@
 # devops
 DevOps Setup for localhost
-Using Docker and Docker-in-Docker for Jenkins (using sysbox):
+
+### Using Docker and Docker-in-Docker for Jenkins (using sysbox):
+The Jenkins Master runs inside an isolated Jenkinx-box (sysbox) with a separated Docker Daemon. Then, the Jenkins Master container (inside the sysbox) is simply binded with the unix socket to the docker daemon of the sysbox: /var/run/docker.sock
+
+Now, the Jenkins is completely isolated from the host machine.
+
+The network is set to the host (network_mode: "host"). Because, all other containers only exists in the local network (SonarQube, Docker Registry, InfluxDB), therefore to simplify access I use --network-host. This can be removed.
 
 Docker Engine + Docker Registry + Docker Registry UI
-Jenkins Master + SSH Agent + Docker Cloud Agents
+Jenkins Master + Docker Cloud Agents
 SonarQube Server + Postgress
 InfluxDB + Grafana
 
 TODO: 
 - Give example of Jenkins Pipelines
-- Add How to Use and Configure Guide for each Container
 
 TO RUN:
 First install docker using the script inside docker folder. 

@@ -13,4 +13,5 @@ docker compose up -d --no-build
 echo '****************************************************'
 echo $'Jenkins Server: http://localhost:8080/'
 echo $'For staring credentials: docker logs jenkins-master'
+echo $'You can bind the socket to other containers inside Jenkins with: /var/run/docker.sock"'
 echo '****************************************************'
