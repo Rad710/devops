@@ -14,6 +14,9 @@ influxdb-grafana-up.sh:
 influxdb-grafana-down.sh:
 - docker compose down
 
+After this, create the Jenkins Database with:
+- docker exec -t influxdb influx -execute 'create database jenkins
+
 ## Containers:
 #### InfluxDBv1.8 at localhost:8086
 To conect to it you need the influxdb plugin in Jenkins, and setup to v1.8
