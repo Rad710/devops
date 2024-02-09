@@ -20,3 +20,4 @@ sonarqube-down.sh:
 
 ## Containers:
 #### SonarQube Server at localhost:9000
+Login and create a Project according to the Programing Language used in your Project
