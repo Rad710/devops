@@ -2,6 +2,7 @@
 set -e
 
 docker network create devops
+docker network create jenkins
 
 cd docker/docker-registry
 echo "Starting Docker Registry Server at $PWD"
@@ -20,20 +21,20 @@ echo "Starting InfluxDB and Grafana Server at $PWD"
 ./influxdb-grafana-up.sh
 cd ..
 
-cd jenkins-sysbox
+cd sysbox
 echo "Starting Syxbox Virtual Host at $PWD"
 ./sysbox-up.sh
+cd ..
+
+cd jenkins
+echo "Starting Jenkins Master at $PWD"
+./jenkins-up.sh
 cd ..
 
 
 echo '****************************************************'
 echo $'Docker Registry Server: http://localhost:5000/'
 echo $'Docker Registry server UI: http://localhost:81/'
-echo '****************************************************'
-
-echo '****************************************************'
-echo $'Sysbox Virtual Host: at localhost -p 20'
-echo $'Staring credentials: admin:admin'
 echo '****************************************************'
 
 echo '****************************************************'
@@ -46,13 +47,17 @@ echo $'InfluxDB Server: http://localhost:8086/'
 echo $'Grafana server UI: http://localhost:3000/'
 echo '****************************************************'
 
+echo '****************************************************'
+echo $'Jenkins Server: http://localhost:8080/'
+echo $'For staring credentials: docker logs jenkins-master'
+echo $'Using Docker Daemon on Sysbox'
+echo $'Sysbox Virtual Host: at localhost -p 20'
+echo $'Staring credentials: admin:admin'
+echo '****************************************************'
+
 
 echo "To create database jenkins inside InfluxDB Container:"
 echo " - docker exec -t influxdb influx -execute 'create database jenkins'"
-
-
-echo "To create Jenkins Master in Sysbox Virtual Host:"
-echo "- docker exec -t -w /usr/bin/jenkins-docker jenkins-box ./jenkins-up.sh"
 
 echo "To SSH into sysbox jenkins-box:"
 echo "- ssh admin@localhost -p 20"

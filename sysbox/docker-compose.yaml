@@ -17,12 +17,11 @@ services:
 
     ports:
       - "20:22"
-      - "8080:8080"
-      - "50000:50000"
-
+      
     hostname: syscont
 
     networks:
+      - jenkins
       - devops
 
     restart: "always"
@@ -35,6 +34,10 @@ volumes:
   jenkins_box_data:
 
 networks:
+  jenkins:
+    name: jenkins
+    external: true
+    
   devops:
     name: devops
     external: true

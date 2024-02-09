@@ -39,6 +39,7 @@ RUN apt-get update &&                            \
             wget                                 \
             jq                                   \
             zip                                  \
+            vim                                  \
             git &&                               \
                                                  \
     # Prevents journald from reading kernel messages from /dev/kmsg
@@ -99,13 +100,15 @@ RUN apt-get update && apt-get install --no-install-recommends -y openssh-server 
     && chown admin:admin /home/admin/.ssh
 
 EXPOSE 22
-EXPOSE 8080
-EXPOSE 50000
+EXPOSE 2375
 
-COPY jenkins /usr/bin/jenkins-docker
-RUN chown admin:admin -R /usr/bin/jenkins-docker
+# Source: https://gist.github.com/styblope/dc55e0ad2a9848f2cc3307d4819d819f
+RUN echo '{ "insecure-registries":["docker-registry-server:5000"] }' | jq > /etc/docker/daemon.json 
 
-RUN echo '{ "insecure-registries":["docker-registry-server:5000"] }' > /etc/docker/daemon.json 
+WORKDIR /etc/systemd/system/docker.service.d/
+RUN printf '[Service]\nExecStart=\nExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2375' > override.conf
+WORKDIR /
+
 RUN service docker restart
 
 # Set systemd as entrypoint.

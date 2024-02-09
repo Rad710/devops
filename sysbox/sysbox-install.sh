@@ -6,7 +6,7 @@ wget https://downloads.nestybox.com/sysbox/releases/v0.6.3/sysbox-ce_0.6.3-0.lin
 
 sha256sum sysbox-ce_0.6.3-0.linux_amd64.deb
 
-echo "This will remove all containers!"
+echo "This will remove all containers! (If this line fails, comment it)"
 sudo docker rm $(docker ps -a -q) -f
 
 sudo apt-get install jq
