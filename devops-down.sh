@@ -28,8 +28,8 @@ cd ..
 
 docker network rm devops
 
-echo $'\Remove all unused networks with: docker network prune'
-echo $'\Remove all unused images with: docker image prune -a'
-echo $'\Remove all unused volumes with: docker volume prune -a'
+echo $'Remove all unused networks with: docker network prune'
+echo $'Remove all unused images with: docker image prune -a'
+echo $'Remove all unused volumes with: docker volume prune -a'
 
-echo $'\Remove all with: docker system prune --all --force --volumes'
+echo $'Remove all with: docker system prune --all --force --volumes'

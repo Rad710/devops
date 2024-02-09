@@ -16,4 +16,6 @@ influxdb-grafana-down.sh:
 
 ## Containers:
 #### InfluxDBv1.8 at localhost:8086
+To conect to it you need the influxdb plugin in Jenkins, and setup to v1.8
 #### Grafana at localhost:3000
+To connect Grafana to InfluxDB simply create a connection and select InfluxQL

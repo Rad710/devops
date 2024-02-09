@@ -27,21 +27,24 @@ cd ..
 
 
 echo '****************************************************'
-echo $'\Docker Registry Server: http://localhost:5000/'
-echo $'\Docker Registry server UI: http://localhost:81/'
+echo $'Docker Registry Server: http://localhost:5000/'
+echo $'Docker Registry server UI: http://localhost:81/'
 echo '****************************************************'
 
 echo '****************************************************'
-echo $'\nJenkins Server: http://localhost:8080/'
-echo $'\For staring credentials: docker logs jenkins-master'
+echo $'Jenkins Server: http://localhost:8080/'
+echo $'For staring credentials: docker logs jenkins-master'
+echo $'You can bind the socket to other containers inside Jenkins with: /var/run/docker.sock"'
 echo '****************************************************'
 
 echo '****************************************************'
-echo $'\Sonarqube Server: http://localhost:9000/'
-echo $'\Starting credentials: admin:admin'
+echo $'Sonarqube Server: http://localhost:9000/'
+echo $'Starting credentials: admin:admin'
 echo '****************************************************'
 
 echo '****************************************************'
-echo $'\InfluxDB Server: http://localhost:8086/'
-echo $'\Grafana server UI: http://localhost:3000/'
+echo $'InfluxDB Server: http://localhost:8086/'
+echo $'Grafana server UI: http://localhost:3000/'
+echo $'\nTo create database jenkins inside InfluxDB Container:'
+echo " - docker exec -t influxdb influx -execute 'create database jenkins'"
 echo '****************************************************'

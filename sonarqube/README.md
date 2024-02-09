@@ -1,4 +1,5 @@
 # SonarQube and Postgress
+SonarQube and Postgress must be in the same network for the connection to work. The using the container name we create the connection to postgress: jdbc:postgresql://postgres-db:5432/sonar
 
 ## Images:
 - sonarqube:community

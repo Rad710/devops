@@ -9,8 +9,6 @@ InfluxDB + Grafana
 
 TODO: 
 - Give example of Jenkins Pipelines
-- Add How to Use and Configure Guide for each Container
-- docker sysbox branch
 
 TO RUN:
 First install docker using the script inside docker folder. 
