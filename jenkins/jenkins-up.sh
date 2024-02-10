@@ -3,7 +3,7 @@ set -e
 
 #Create SSH key for Agent
 cat << EOF > .env
-REGISTRY=docker-registry-server:5000
+REGISTRY=localhost:5000
 EOF
 
 docker compose build
