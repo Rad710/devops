@@ -1,7 +1,11 @@
 #!/bin/bash
-set -e
+# Exit the script with error if any of the commands fail
+set -o errexit
 
 #Install docker in ubuntu: https://docs.docker.com/engine/install/ubuntu/
+
+echo '****************************************************'
+echo 'Installing Docker packages...'
 
 # Add Docker's official GPG key:
 sudo apt-get update
@@ -19,7 +23,14 @@ sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
+echo 'Finished installing Docker packages...'
+echo '****************************************************'
+
+
+echo '****************************************************'
+echo 'Testing Docker installation...'
 sudo docker run hello-world
+echo '****************************************************'
 
 #Post installation steps
 
@@ -27,4 +38,8 @@ sudo docker run hello-world
 # sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
+
+echo '****************************************************'
+echo 'Testing Docker installation...'
 docker run hello-world
+echo '****************************************************'

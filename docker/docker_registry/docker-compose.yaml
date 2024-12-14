@@ -1,11 +1,6 @@
-version: '3.9'
-
 services:
   docker-registry-ui:
-    build:
-      dockerfile: Dockerfile.registry.ui
-      
-    image: ${REGISTRY}/docker/registry-ui:main
+    image: joxit/docker-registry-ui:main
 
     restart: always
     
@@ -19,7 +14,7 @@ services:
       - SHOW_CONTENT_DIGEST=true
       - SHOW_CATALOG_NB_TAGS=true
       - REGISTRY_SECURED=false
-      - REGISTRY_URL=http://localhost:5000
+      - REGISTRY_URL=${REGISTRY_URL}
     
     container_name: docker-registry-ui
     
@@ -31,7 +26,7 @@ services:
     build:
       dockerfile: Dockerfile.registry
       
-    image: ${REGISTRY}/docker/registry:2
+    image: registry:2
 
     restart: always
 

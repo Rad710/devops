@@ -29,18 +29,10 @@ fi
 
 echo '****************************************************'
 echo 'Sonarqube Server stopping...'
+echo 'Sonarqube Server removing all volumes and networks...'
 
 # Stop and remove containers, networks, and volumes using 'docker compose down'
 SONAR_JDBC_PASSWORD=$SONAR_JDBC_PASSWORD docker compose -f docker-compose.yaml down --volumes --remove-orphans
 
 echo 'Sonarqube Server down!'
-echo '****************************************************'
-
-echo ''
-echo '****************************************************'
-echo 'Sonarqube Server removing all volumes and networks...'
-
-# Remove the custom network if it exists (assuming 'sonarqube' is the network name)
-docker network rm sonarqube 2>/dev/null || echo 'Network sonarqube not found.'
-
 echo '****************************************************'
