@@ -46,10 +46,11 @@ cd ..
 
 echo ''
 echo '****************************************************'
-echo $'SSH into Virtual Host....'
+echo $'Must SSH into Virtual Host and start containers. Please read sysbox/README file....'
 sleep 5
 sshpass -p 'admin' scp -r -P 20 jenkins_dood/ admin@localhost:/tmp/jenkins_dood
-sshpass -p 'admin' ssh admin@localhost -p 20 "cd /tmp/jenkins_dood && bash jenkins_up.sh --registry_url=localhost:5000 --group_add_id=$(stat -c '%g' /var/run/docker.sock)"
+
+echo " - ssh admin@localhost -p 20 "
 echo '****************************************************'
 
 

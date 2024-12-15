@@ -26,6 +26,9 @@ services:
     group_add:
       - ${GROUP_ADD_ID} #docker group id
 
+    # since registry and other containers only in localmachine then use host's network
+    network_mode: "host"
+
   jenkins-agent-cloud:
     # build:
     #   dockerfile: agents/Dockerfile.agent.cloud

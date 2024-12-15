@@ -7,8 +7,12 @@ services:
   jenkins-box:
     # build:
     #   dockerfile: Dockerfile
-      
-    image: ${REGISTRY_URL}/sysbox/ubuntu-systemd-docker:noble
+
+    # use prebuild image  
+    image: nestybox/ubuntu-noble-systemd-docker:latest
+
+    # use own build image
+    # image: ${REGISTRY_URL}/sysbox/ubuntu-systemd-docker:noble
 
     container_name: jenkins-box
 
@@ -16,6 +20,8 @@ services:
 
     ports:
       - "20:22"
+      - "8080:8080"
+      - "50000:50000"
       
     hostname: syscont
 

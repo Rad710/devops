@@ -1,6 +1,17 @@
 # Sysbox Virtual Host
 This runs an isolated instance of Ubuntu Noble with an isolated Docker Daemon. You may create your own docker containers inside, privileged or mounting docker's unix sock. 
 
+To use local docker-registry inside the Containers (sysbox and Docker Registry) must be in the same docker network, and you must create the file **/etc/docker/daemon.json** with content and execut **sudo service docker restart**:
+
+```json
+{
+  "insecure-registries" : [
+    "docker-registry-server:5000"
+  ]
+}
+```
+
+
 ## Images:
 - ubuntu:noble
 
