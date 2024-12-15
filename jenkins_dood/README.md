@@ -7,8 +7,8 @@ For the Docker Cloud Agents, the network is set to the host (network_mode: "host
 
 
 ## Images:
-- jenkins/jenkins:jdk17
-- jenkins/agent:jdk17 (delete after compose up)
+- jenkins/jenkins:jdk21
+- jenkins/agent:jdk21 (delete after compose up)
 
 ## Scripts:
 jenkins-up.sh:

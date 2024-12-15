@@ -12,7 +12,7 @@
 # --volume jenkins-data:/var/jenkins_home \
 # --volume /var/run/docker.sock:/var/run/docker.sock jenkins-blueocean
 
-FROM jenkins/jenkins:jdk17
+FROM jenkins/jenkins:jdk21
 
 USER root
 

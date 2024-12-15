@@ -1,0 +1,39 @@
+# docker run -p 8080:8080 -p 50000:50000 \
+# --restart=always -v jenkins_home:/var/jenkins_home \
+# --name jenkins-master
+# jenkins/jenkins
+#Create master and ssh agent
+
+services:
+  jenkins-master:
+    # build:
+    #   dockerfile: master/Dockerfile.master
+      
+    image: ${REGISTRY_URL}/jenkins/master:jdk21
+
+    container_name: jenkins-master
+
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+
+    restart: "always"
+
+    volumes:
+      - "jenkins_home:/var/jenkins_home"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+    group_add:
+      - ${GROUP_ADD_ID} #docker group id
+
+  jenkins-agent-cloud:
+    # build:
+    #   dockerfile: agents/Dockerfile.agent.cloud
+      
+    image: ${REGISTRY_URL}/jenkins/agent-cloud:jdk21
+
+    container_name: jenkins-agent-cloud
+
+
+volumes:
+  jenkins_home:

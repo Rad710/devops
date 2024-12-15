@@ -5,10 +5,10 @@
 
 services:
   jenkins-box:
-    build:
-      dockerfile: Dockerfile
+    # build:
+    #   dockerfile: Dockerfile
       
-    # image: ${REGISTRY}/sysbox/ubuntu-systemd-docker:22.04
+    image: ${REGISTRY_URL}/sysbox/ubuntu-systemd-docker:noble
 
     container_name: jenkins-box
 
@@ -35,6 +35,8 @@ volumes:
 networks:
   jenkins:
     name: jenkins
+    external: true
     
   devops:
     name: devops
+    external: true

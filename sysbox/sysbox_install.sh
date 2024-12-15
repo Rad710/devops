@@ -26,10 +26,11 @@ while [[ "$#" -gt 0 ]]; do
     esac
     shift  # Move to the next argument
 done
+
 IS_VALID=true
 # Ensure SYSBOX_VERSION is set
 if [ -z "$SYSBOX_VERSION" ]; then
-    echo "Please provide the SYSBOX_VERSION argument using --sysbox_version=0.6.5"
+    echo "Please provide the SYSBOX_VERSION argument using --sysbox_version=0.6.4"
     IS_VALID=false
 fi
 

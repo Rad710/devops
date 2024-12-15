@@ -1,6 +1,6 @@
 services:
   sonarqube-community:
-    image: sonarqube:10.4.0-community
+    image: sonarqube:10.7.0-community
 
     environment:
       SONAR_JDBC_URL: jdbc:postgresql://sonarqube-postgres-db:5432/sonar
@@ -24,7 +24,7 @@ services:
     container_name: sonarqube-community
 
   sonarqube-postgres-db:
-    image: postgres:15
+    image: postgres:15.10
 
     environment:
       POSTGRES_USER: sonar

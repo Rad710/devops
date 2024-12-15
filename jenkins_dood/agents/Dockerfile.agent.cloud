@@ -1,10 +1,9 @@
-FROM jenkins/inbound-agent:jdk17
+FROM jenkins/agent:jdk21
 
 USER root
 
 # Add Docker's official GPG key:
-RUN apt-get -y update
-RUN apt-get -y install ca-certificates curl gnupg
+RUN apt-get -y update && apt-get -y install ca-certificates curl gnupg
 RUN install -m 0755 -d /etc/apt/keyrings
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 RUN chmod a+r /etc/apt/keyrings/docker.gpg
@@ -16,11 +15,8 @@ RUN echo \
     tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 #Install Docker CLI
-RUN apt-get -y update
-RUN apt-get -y install docker-ce-cli jq wget
+RUN apt-get -y update && apt-get -y install docker-ce-cli
 
-#Agregar user para el jenkins del vm (uid: 113, gid: 121)
-RUN groupadd --gid 121 new-jenkins \
-    && useradd --uid 113 --gid new-jenkins --shell /bin/bash --create-home new-jenkins
+RUN apt-get install -y inetutils-ping wget zip jq
 
 USER jenkins

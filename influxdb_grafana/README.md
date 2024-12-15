@@ -2,7 +2,7 @@
 
 ## Images:
 - influxdb:1.8
-- grafana/grafana:10.3.1
+- grafana/grafana:11.4.0
 
 ## Scripts:
 influxdb_grafana_up.sh:

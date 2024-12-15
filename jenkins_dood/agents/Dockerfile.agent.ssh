@@ -7,7 +7,7 @@
 # -v /var/run/docker.sock:/var/run/docker.sock \
 # --restart=on-failure jenkins-ssh-agent
 
-FROM jenkins/ssh-agent:jdk11
+FROM jenkins/ssh-agent:jdk21
 
 USER root
 
