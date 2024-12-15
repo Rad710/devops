@@ -18,7 +18,6 @@ cd docker/docker_registry
 bash docker_registry_down_remove.sh --registry_url=http://localhost:5000
 cd ../..
 
-# # Jenkins DooD is inside sysbox
-# cd sysbox
-# bash sysbox_down_remove.sh --registry_url=localhost:5000
-# cd ..
+cd sysbox
+bash sysbox_down_remove.sh --registry_url=localhost:5000
+cd ..
