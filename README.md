@@ -1,14 +1,18 @@
 # devops
 DevOps Setup for localhost
 
-Using sysbox: https://github.com/nestybox/sysbox/blob/master/docs/user-guide/dind.md
+Using [Sysbox Solution](https://github.com/nestybox/sysbox/blob/master/docs/user-guide/dind.md)
 
 ### Using Docker for Jenkins (using sysbox):
-The Jenkins Box runs as an isolated Docker Daemon inside the sysbox. Then, the Jenkins Master container simply connects over TCP to the Docker Daemon (of the sysbox) using the tcp socket: tcp://jenkins-box:2375. Therefore, Docker Cloud agents must be used as Agents.
+The Jenkins Box runs as an isolated Docker Daemon inside the sysbox. Then, the Jenkins Master container is created inside the Sysbox container and the docker unix sock is mounted as a volume to the container. 
 
-Now, the Jenkins is completely isolated from the host machine while also running as a container in the host machine itself.
+Using a DooD approach inside an isolated container the Jenkins is completely isolated from the host machine while also running as a container in the host machine itself.
 
-For the Docker Cloud Agents, the network is set to the host (network_mode: "host"). Because, all other containers only exist in the local network (SonarQube, Docker Registry, InfluxDB), therefore to simplify access I use --network-host. This can be removed.
+```
+Also, since this setup uses everything in the local machine using http. The docker registry must be configured to be insecure. Read more in the sysbox/README.md file
+
+For the Jenkins Master and Docker Cloud Agents, the network is set to the host (network_mode: "host"). Because, all other containers only exist in the local network (SonarQube, Docker Registry, InfluxDB), therefore to simplify access I use --network-host. This can be removed.
+```
 
 Docker Engine + Docker Registry + Docker Registry UI
 Jenkins Master + Docker Cloud Agents
@@ -17,25 +21,14 @@ InfluxDB + Grafana
 
 TODO: 
 - Give example of Jenkins Pipelines
-- Using TCP with Certs
-
-TO RUN:
-First install docker using the script inside docker folder. 
-To startup all containers run the script devops-up.sh
-To delete all containers run devops-down.sh
 
 
-## Scripts:
+## Guide:
 
-devops-up.sh:
-- docker network create devops (used by all docker compose files)
-- docker network create jenkins
-- Creates .env file for each folder
-- Runs each ${folder}-up.sh file to start respective docker compose up
-- docker exec -t influxdb influx -execute 'create database jenkins'
+devops_up.sh:
+- Runs all up scripts and starts all docker containers. Or you may start all containers individially by creating the docker networks and running the scripts in the following order 
+  - **sysbox -> sonarqube -> influxdb_grafana*. Then ssh into sysbox container and start the jenkins container*
+- You can check them as well as well as the respective folders to see how the setup works more in detail.
 
-devops-down.sh:
-- docker compose down
-- Removes all .env files
-- docker network rm devops
-- docker network rm jenkins
+devops_down.sh:
+- Runs all down scripts and removes all docker containers, volumes, networks, etc.

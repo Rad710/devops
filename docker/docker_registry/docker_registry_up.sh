@@ -39,5 +39,5 @@ echo '****************************************************'
 echo ''
 echo '****************************************************'
 echo "Docker Registry Server: ${REGISTRY_URL}"
-echo $'Docker Registry server UI: http://localhost:81/'
+echo "Docker Registry server UI: ${REGISTRY_URL} (use another port. 80)"
 echo '****************************************************'
