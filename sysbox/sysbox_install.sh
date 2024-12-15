@@ -46,7 +46,7 @@ if [ "$IS_VALID" = false ]; then
 fi
 
 # Installing Sysbox
-wget https://downloads.nestybox.com/sysbox/releases/v${SYSBOX_VERSION}/sysbox-ce_${SYSBOX_VERSION}-0.linux_amd64.deb
+wget https://downloads.nestybox.com/sysbox/releases/v${SYSBOX_VERSION}/sysbox-ce_${SYSBOX_VERSION}-0.linux_${SYSBOX_ARCH}.deb
 
 sha256sum sysbox-ce_${SYSBOX_VERSION}-0.linux_${SYSBOX_ARCH}.deb
 
