@@ -3,7 +3,7 @@ This runs an isolated instance of Ubuntu Jammy with an isolated Docker Daemon. T
 To connect Jenkins Docker Cloud over TCP use: tcp://jenkins-box:2375
 
 ## Images:
-- ubuntu:22.04
+- ubuntu:noble
 
 ## Scripts:
 sysbox-up.sh:

@@ -14,7 +14,7 @@ echo 'Docker cleaning cache, images, containers, volumes...'
 #   echo "No running containers to stop."
 # fi
 
-docker system prune -f -a
+docker system prune -f -a --volumes
 docker volume prune -f -a
 docker network prune -f
 

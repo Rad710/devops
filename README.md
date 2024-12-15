@@ -1,6 +1,8 @@
 # devops
 DevOps Setup for localhost
 
+Using sysbox: https://github.com/nestybox/sysbox/blob/master/docs/user-guide/dind.md
+
 ### Using Docker for Jenkins (using sysbox):
 The Jenkins Box runs as an isolated Docker Daemon inside the sysbox. Then, the Jenkins Master container simply connects over TCP to the Docker Daemon (of the sysbox) using the tcp socket: tcp://jenkins-box:2375. Therefore, Docker Cloud agents must be used as Agents.
 

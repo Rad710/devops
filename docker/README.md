@@ -20,13 +20,11 @@ docker_registry folder
 
 ## Scripts:
 docker-registry-up.sh:
-- docker compose build
-- docker compose up -d --no-build
-- docker compose push
+- Initializes containers
 
 
-docker-registry-down.sh:
-- docker compose down
+docker_registry_down.sh:
+- Remove docker containers and volumes, networks, etc.
 
 ## Containers:
 #### Docker Registry at localhost:5000 (no credentials configured)
@@ -35,7 +33,7 @@ To push images:
 - docker push localhost:5000/<image-name>
 
 #### Docker Registry UI at localhost:81
-Delete images enables
+Delete images enabled
 
 
 TODO: use registry with https and configure credentials, etc

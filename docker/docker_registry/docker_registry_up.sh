@@ -27,8 +27,6 @@ if [ -z "$REGISTRY_URL" ]; then
 fi
 
 
-#Sonarqube requirements: 
-# https://docs.sonarsource.com/sonarqube/latest/requirements/prerequisites-and-overview/
 echo '****************************************************'
 echo 'Docker Registry Server init...'
 

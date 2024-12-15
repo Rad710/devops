@@ -1,11 +1,6 @@
-version: "3.9"
-
 services:
   influxdb:
-    build:
-      dockerfile: Dockerfile.influxdb
-
-    image: ${REGISTRY}/influxdb/influxdb:1.8
+    image: influxdb:1.8
 
     volumes:
       - influxdb_data:/var/lib/influxdb
@@ -23,10 +18,7 @@ services:
 
 
   grafana:
-    build:
-      dockerfile: Dockerfile.grafana
-
-    image: ${REGISTRY}/grafana/grafana:10.3.1
+    image: grafana/grafana:10.3.1
 
     volumes:
       - grafana_data:/var/lib/grafana

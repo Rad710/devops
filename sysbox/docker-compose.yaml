@@ -3,13 +3,12 @@
 #  --hostname=syscont --name=jenkins-box --restart=always \
 #  nestybox/ubuntu-jammy-systemd-docker:latest
 
-version: "3.9"
 services:
   jenkins-box:
     build:
       dockerfile: Dockerfile
       
-    image: ${REGISTRY}/sysbox/ubuntu-systemd-docker:22.04
+    # image: ${REGISTRY}/sysbox/ubuntu-systemd-docker:22.04
 
     container_name: jenkins-box
 
@@ -36,8 +35,6 @@ volumes:
 networks:
   jenkins:
     name: jenkins
-    external: true
     
   devops:
     name: devops
-    external: true

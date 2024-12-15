@@ -1,7 +1,7 @@
-#SOURCE: https://github.com/nestybox/dockerfiles/blob/master/ubuntu-jammy-systemd-docker/Dockerfile
+#SOURCE: https://github.com/nestybox/dockerfiles/blob/master/ubuntu-noble-systemd-docker/Dockerfile
 
 
-# Sample container image with Ubuntu Jammy + Systemd
+# Sample container image with Ubuntu Noble + Systemd
 #
 # Description:
 #
@@ -12,70 +12,70 @@
 #
 # Usage:
 #
-# $ docker run --runtime=sysbox-runc -it --rm --name=syscont nestybox/ubuntu-jammy-systemd
+# $ docker run --runtime=sysbox-runc -it --rm --name=syscont nestybox/ubuntu-noble-systemd
 #
 # This will run systemd and prompt for a user login; the default user/password
 # in this image is "admin/admin".
 
-FROM ubuntu:22.04
+FROM ubuntu:noble
 
 #
 # Systemd installation
 #
 RUN apt-get update &&                            \
     apt-get install -y --no-install-recommends   \
-            systemd                              \
-            systemd-sysv                         \
-            libsystemd0                          \
-            ca-certificates                      \
-            dbus                                 \
-            iptables                             \
-            iproute2                             \
-            kmod                                 \
-            locales                              \
-            sudo                                 \
-            udev                                 \
-            inetutils-ping                       \
-            wget                                 \
-            jq                                   \
-            zip                                  \
-            vim                                  \
-            git &&                               \
-                                                 \
+    systemd                              \
+    systemd-sysv                         \
+    libsystemd0                          \
+    ca-certificates                      \
+    dbus                                 \
+    iptables                             \
+    iproute2                             \
+    kmod                                 \
+    locales                              \
+    sudo                                 \
+    udev &&                              \
+    \
     # Prevents journald from reading kernel messages from /dev/kmsg
     echo "ReadKMsg=no" >> /etc/systemd/journald.conf &&               \
-                                                                      \
+    \
     # Housekeeping
     apt-get clean -y &&                                               \
     rm -rf                                                            \
-       /var/cache/debconf/*                                           \
-       /var/lib/apt/lists/*                                           \
-       /var/log/*                                                     \
-       /tmp/*                                                         \
-       /var/tmp/*                                                     \
-       /usr/share/doc/*                                               \
-       /usr/share/man/*                                               \
-       /usr/share/local/* &&                                          \
-                                                                      \
+    /var/cache/debconf/*                                           \
+    /var/lib/apt/lists/*                                           \
+    /var/log/*                                                     \
+    /tmp/*                                                         \
+    /var/tmp/*                                                     \
+    /usr/share/doc/*                                               \
+    /usr/share/man/*                                               \
+    /usr/share/local/* &&                                          \
+    \
     # Create default 'admin/admin' user
     useradd --create-home --shell /bin/bash admin && echo "admin:admin" | chpasswd && adduser admin sudo
 
 # Disable systemd services/units that are unnecessary within a container.
 RUN systemctl mask systemd-udevd.service \
-                   systemd-udevd-kernel.socket \
-                   systemd-udevd-control.socket \
-                   systemd-modules-load.service \
-                   sys-kernel-debug.mount \
-                   sys-kernel-tracing.mount
+    systemd-udevd-kernel.socket \
+    systemd-udevd-control.socket \
+    systemd-modules-load.service \
+    sys-kernel-debug.mount \
+    sys-kernel-tracing.mount \
+    sys-kernel-config.mount \
+    e2scrub_reap.service \
+    e2scrub_all.timer
 
 # Make use of stopsignal (instead of sigterm) to stop systemd containers.
 STOPSIGNAL SIGRTMIN+3
 
-# Sample container image with Ubuntu Jammy + Systemd + Sshd + Docker.
+# Set systemd as entrypoint.
+# ENTRYPOINT [ "/sbin/init", "--log-level=err" ]
+
+# Sample container image with Ubuntu Noble + Systemd + Sshd + Docker.
 #
 # Usage:
 #
-# $ docker run --runtime=sysbox-runc -it --rm -P --name=syscont nestybox/ubuntu-jammy-systemd-docker
+# $ docker run --runtime=sysbox-runc -it --rm -P --name=syscont nestybox/ubuntu-noble-systemd-docker
 #
 # This will run systemd and prompt for a user login; the default
 # user/password in this image is "admin/admin". Once you log in you
@@ -84,6 +84,9 @@ STOPSIGNAL SIGRTMIN+3
 # $ ssh admin@<host-ip> -p <host-port>
 #
 # where <host-port> is chosen by Docker and mapped into the system container's sshd port.
+#
+
+# FROM nestybox/ubuntu-noble-systemd:latest
 
 # Install Docker
 RUN apt-get update && apt-get install -y curl \
@@ -100,16 +103,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y openssh-server 
     && chown admin:admin /home/admin/.ssh
 
 EXPOSE 22
-EXPOSE 2375
-
-# Source: https://gist.github.com/styblope/dc55e0ad2a9848f2cc3307d4819d819f
-RUN echo '{ "insecure-registries":["docker-registry-server:5000"] }' | jq > /etc/docker/daemon.json 
-
-WORKDIR /etc/systemd/system/docker.service.d/
-RUN printf '[Service]\nExecStart=\nExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2375' > override.conf
-WORKDIR /
-
-RUN service docker restart
 
 # Set systemd as entrypoint.
 ENTRYPOINT [ "/sbin/init", "--log-level=err" ]
