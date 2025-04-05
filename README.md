@@ -25,10 +25,8 @@ TODO:
 
 ## Guide:
 
-devops_up.sh:
-- Runs all up scripts and starts all docker containers. Or you may start all containers individially by creating the docker networks and running the scripts in the following order 
-  - **sysbox -> sonarqube -> influxdb_grafana*. Then ssh into sysbox container and start the jenkins container*
-- You can check them as well as well as the respective folders to see how the setup works more in detail.
-
-devops_down.sh:
-- Runs all down scripts and removes all docker containers, volumes, networks, etc.
+Setup:
+ - docker network create devops
+ - docker network create jenkins
+ - Runs all up scripts and starts all docker containers. Or you may start all containers individially by creating the docker networks and running the scripts in the following order 
+   - **sysbox -> sonarqube -> influxdb_grafana*. Then ssh into sysbox container and start the jenkins container*

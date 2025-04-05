@@ -18,10 +18,10 @@ services:
 
     runtime: sysbox-runc
 
-    ports:
-      - "20:22"
-      - "8080:8080"
-      - "50000:50000"
+    # ports:
+    #   - "20:22"
+    #   - "8080:8080"
+    #   - "50000:50000"
       
     hostname: syscont
 

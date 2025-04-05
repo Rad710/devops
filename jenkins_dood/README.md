@@ -10,16 +10,6 @@ For the Docker Cloud Agents, the network is set to the host (network_mode: "host
 - jenkins/jenkins:jdk21
 - jenkins/agent:jdk21 (delete after compose up)
 
-## Scripts:
-jenkins-up.sh:
-- docker compose build
-- docker compose up -d --no-build
-- docker compose push
-
-
-jenkins-down.sh:
-- docker compose down
-
 ## Containers:
 #### Jenkins Master at localhost:8080
 To start: login using the credentials (docker logs jenkins-master). Download recommended plugins. Then, also download the plugins:
@@ -28,3 +18,51 @@ To start: login using the credentials (docker logs jenkins-master). Download rec
 - SonarScanner
 - Docker Cloud plugin
 #### Jenkins SSH Agent at localhost:23
+
+
+## Init containers:
+```bash
+export REGISTRY_URL=localhost:5000
+export GROUP_ADD_ID=$(stat -c '%g' /var/run/docker.sock)
+
+echo '****************************************************'
+echo $'Building jenkins/master image...'
+
+docker build -t ${REGISTRY_URL}/jenkins/master:jdk21 -f master/Dockerfile.master .
+docker push ${REGISTRY_URL}/jenkins/master:jdk21
+
+echo $'Docker image jenkins/master built!'
+echo '****************************************************'
+
+echo ''
+echo '****************************************************'
+echo $'Building jenkins/agent-cloud image...'
+
+docker build -t ${REGISTRY_URL}/jenkins/agent-cloud:jdk21 -f agents/Dockerfile.agent.cloud .
+docker push ${REGISTRY_URL}/jenkins/agent-cloud:jdk21
+
+echo $'Docker image jenkins/agent-cloud built!'
+echo '****************************************************'
+
+
+echo ''
+echo '****************************************************'
+echo 'Jenkins Server init...'
+
+REGISTRY_URL=$REGISTRY_URL GROUP_ADD_ID=$GROUP_ADD_ID docker compose -f docker-compose.yaml up -d
+
+echo 'Jenkins Server up and running!'
+echo '****************************************************'
+
+
+echo ''
+echo '****************************************************'
+echo $'Jenkins Server: http://localhost:8080/'
+echo $'For staring credentials: docker logs jenkins-master'
+echo '****************************************************'
+```
+
+## Remove container
+```bash
+docker compose -f docker-compose.yaml down --volumes --remove-orphans
+```

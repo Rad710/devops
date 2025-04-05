@@ -22,15 +22,33 @@ sysbox_install.sh:
   - --sysbox_arch
 
 
-sysbox_up.sh:
-- Initializes a Sysbox Virtual Host container with a Docker Daemon installed inside it.
-
-
-sysbox_down.sh:
-- Removes the Sysbox Virtual Host container, volume, image, etc. Note that this results in the loss of all data inside the container and the inner containers.
-
 ## Containers:
 #### Jenkins-box
 This contains a Docker Daemon Host. You can ssh into it using (or configure a different port):
 - ssh admin@localhost -p 20
 - Initial credentials are "admin:admin"
+
+
+## Init containers:
+```bash
+echo '****************************************************'
+echo $'Building ubuntu-systemd-docker image...'
+
+export REGISTRY_URL="localhost:5000"
+docker build -t ${REGISTRY_URL}/sysbox/ubuntu-systemd-docker:noble .
+docker push ${REGISTRY_URL}/sysbox/ubuntu-systemd-docker:noble
+
+echo $'Docker image ubuntu-systemd-docker built!'
+echo '****************************************************'
+
+REGISTRY_URL=$REGISTRY_URL docker compose -f docker-compose.yaml up -d
+
+echo '****************************************************'
+echo $'You can create containers inside this Virtual Host now!'
+echo '****************************************************'
+```
+
+## Remove container
+```bash
+docker compose -f docker-compose.yaml down --volumes --remove-orphans
+```
