@@ -1,6 +1,6 @@
 services:
   devops-nginx:
-    image: ${REGISTRY_URL}/devops/devops-nginx:1.27.4-bookworm-perl
+    image: devops-nginx:1.27.4-bookworm-perl
     
     ports:
       - 80:80
