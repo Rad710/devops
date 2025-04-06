@@ -1,0 +1,18 @@
+services:
+  devops-nginx:
+    image: ${REGISTRY_URL}/devops/devops-nginx:1.27.4-bookworm-perl
+    
+    ports:
+      - 80:80
+      - 443:443
+
+    container_name: devops-nginx
+
+    networks:
+      - devops
+
+
+networks:
+  devops:
+    name: devops
+    external: true
