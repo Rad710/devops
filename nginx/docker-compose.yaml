@@ -8,6 +8,8 @@ services:
 
     container_name: devops-nginx
 
+    restart: always
+
     networks:
       - devops
 
